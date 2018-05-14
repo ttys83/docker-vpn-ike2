@@ -5,7 +5,7 @@ export PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
 if [ -d /vpn-certs ]; then
     echo "Certifacates found, loading..."
 else
-    echo "Cannot find certificates. Exitting..."
+    echo "Cannot find certificates. Exiting..."
     exit 1
 fi
 
@@ -96,10 +96,16 @@ EOF
 
 cat > /etc/ipsec.secrets <<EOF
 $PUBLIC_IP : RSA "/etc/ipsec.d/private/vpn-server-key.pem"
-andrew-macmini %any% : EAP "123"
-andrew-iphone %any% : EAP "123"
-andrew-macbook %any% : EAP "123"
-andrew-ipad %any% : EAP "123"
 EOF
+
+cat /vpn-certs/clients.secrets >> /etc/ipsec.secrets
+
+echo ""
+echo "This is your certificate below, deploy it to your devices"
+cat /vpn-certs/server-root-ca.pem
+
+echo ""
+echo "This is your clients secrets, one per device:"
+cat /vpn-certs/clients.secrets
 
 /usr/sbin/ipsec start --nofork
