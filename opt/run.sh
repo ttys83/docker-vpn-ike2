@@ -108,4 +108,6 @@ echo ""
 echo "This is your clients secrets, one per device:"
 cat /vpn-certs/clients.secrets
 
+rm /var/run/starter.charon.pid
+
 /usr/sbin/ipsec start --nofork
