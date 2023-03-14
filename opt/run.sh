@@ -75,8 +75,8 @@ conn ikev2-vpn
     keyexchange=ikev2
     fragmentation=yes
     forceencaps=yes
-    ike=aes256-sha1-modp1024,3des-sha1-modp1024!
-    esp=aes256-sha1,3des-sha1!
+    ike=aes256-sha256-prfsha256-modp2048,aes256-sha1-modp1024,3des-sha1-modp1024!
+    esp=aes256-sha256,aes256-sha1,3des-sha1!
     dpdaction=clear
     dpddelay=300s
     rekey=no
